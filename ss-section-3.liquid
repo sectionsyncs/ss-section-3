@@ -1,0 +1,167 @@
+{{ 'ss-section-3.scss' | asset_url | stylesheet_tag }}
+{% style %}
+    #shopify-section-{{ section.id }} {
+        --ss-section-bg: {{ section.settings.section_bg.red }}, {{ section.settings.section_bg.green }}, {{ section.settings.section_bg.blue }}, {{ section.settings.section_bg.alpha }};
+        --ss-section-text-color: {{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }}, {{ section.settings.text_color.alpha }};
+        --ss-strong-color: {{ section.settings.title_2_color }};
+        --ss-input-bg: {{ section.settings.input_bg.red }}, {{ section.settings.input_bg.green }}, {{ section.settings.input_bg.blue }}, {{ section.settings.input_bg.alpha }}; 
+        --ss-input-border: {{ section.settings.input_border.red }}, {{ section.settings.input_border.green }}, {{ section.settings.input_border.blue }}, {{ section.settings.input_border.alpha }}; 
+        --ss-input-color: {{ section.settings.input_color.red }}, {{ section.settings.input_color.green }}, {{ section.settings.input_color.blue }}, {{ section.settings.input_color.alpha }}; 
+        --ss-button-bg: {{ section.settings.button_bg.red }}, {{ section.settings.button_bg.green }}, {{ section.settings.button_bg.blue }}, {{ section.settings.button_bg.alpha }}; 
+        --ss-button-border: {{ section.settings.button_border.red }}, {{ section.settings.button_border.green }}, {{ section.settings.button_border.blue }}, {{ section.settings.button_border.alpha }}; 
+        --ss-button-color: {{ section.settings.button_color.red }}, {{ section.settings.button_color.green }}, {{ section.settings.button_color.blue }}, {{ section.settings.button_color.alpha }}; 
+    }
+{% endstyle %}
+<div class="ss-inner-container">
+    <div class="ss-background-container">
+        {% if section.settings.image != blank %}
+            <img src="{{ section.settings.image | img_url: 'master' }}" width="1728" height="1117" alt="{{ section.settings.image.alt }}">        
+        {% else %}
+            <img src="{{ 'ss-section-3-bg.png' | asset_url }}" alt="Background_Default" width="1728" height="1117">
+        {% endif %}
+    </div>
+    <div class="ss-content-container">
+        <div class="img-container">
+            <ul>
+                <li>
+                    <img src="{{ 'ss-section-3-c1.png' | asset_url }}" alt="circle_image1">
+                </li>
+                <li>
+                    <img src="{{ 'ss-section-3-c2.png' | asset_url }}" alt="circle_image1">
+                </li>
+                <li>
+                    <img src="{{ 'ss-section-3-c3.png' | asset_url }}" alt="circle_image1">
+                </li>
+                <li>
+                    <img src="{{ 'ss-section-3-c4.png' | asset_url }}" alt="circle_image1">
+                </li>
+                <li>
+                    <img src="{{ 'ss-section-3-c5.png' | asset_url }}" alt="circle_image1">
+                </li>
+            </ul>
+            <p>
+                loved by over 2 million worldwide
+            </p>
+        </div>
+        <h2 class="main-title">
+            {% if section.settings.main_title contains '|' %}
+                {% assign lines = section.settings.main_title | split: '|' %}
+                {% for line in lines %}
+                    {{ line }} <br>
+                {% endfor %}
+            {% else %}
+                {{ section.settings.main_title }}
+            {% endif %}
+        </h2>
+        <div class="ss-rte rte">
+            {{ section.settings.content }}
+        </div>
+        <div class="newsletter-container">
+            {% form 'customer', class: 'newsletter-form' %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="ss-input-button">
+                    <input type="email" name="contact[email]" placeholder="Enter your work email">
+                    <button type="submit">
+                        Sign up free
+                    </button>
+                </div>
+                {% if form.posted_successfully? %}
+                      <p>Thanks for subscribing</p>
+                {% endif %}
+            {% endform %}
+        </div>
+    </div>
+</div>
+{% schema %}
+{
+    "name": "SS Section 3",
+    "class": "ss-section-3",
+    "presets": [
+        {
+            "name":"SS Section 3"
+        }
+    ],
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "background",
+            "label": "Background Image"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "main_title",
+            "label": "Main Title",
+            "default": "Craft Brilliance, Design Smarter."
+        },
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "<p>Revolutionize your creative process with tools that empower precision and inspire innovation. For designers who dare to redefine possibilities.</p>"
+        },
+        {
+            "type": "color",
+            "id": "section_bg",
+            "label": "Section Background",
+            "default": "#FAF7F0"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000000"
+        },
+        {
+            "type": "color_background",
+            "id": "title_2_color",
+            "label": "Title Color 2",
+            "default": "linear-gradient(93deg, #9025FB 4.45%, #0B6EE2 47.16%)"
+        },
+        {
+            "type": "header",
+            "content": "Input Settings",
+        },
+        {
+            "type": "color",
+            "id": "input_bg",
+            "label": "Input Background",
+            "default": "#FAF7F0"
+        },
+        {
+            "type": "color",
+            "id": "input_border",
+            "label": "Input Border Color",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "input_color",
+            "label": "Input Color",
+            "default": "#000000"
+        },
+        {
+            "type": "header",
+            "content": "Button Settings",
+        },
+        {
+            "type": "color",
+            "id": "button_bg",
+            "label": "Button Background",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "button_border",
+            "label": "Button Border Color",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "button_color",
+            "label": "Button Color",
+            "default": "#FFFFFF"
+        }
+
+    ]
+}
+{% endschema %}
